@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <head>
+    <title>Portfolio Page</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="main-content">
+        <div th:fragment="t2" id="t2">
+          <div th:each="item:${positons}">
+            <hr />
+            <div
+              th:text="'投资组合：'+${item.portfolio.info}"
+              style="font-size: 20px"
+            ></div>
+
+            <div class="layui-row">
+              <div class="layui-col-xs6">
+                <div th:text="'总持仓成本: '+${item.sumPositionCost}"></div>
+                <div th:text="'单标满仓金额: '+${item.fullPosition}"></div>
+              </div>
+              <div class="layui-col-xs6">
+                <div
+                  th:text="'总盈亏：'+${item.sumProfitLosses}"
+                  th:style="${item.pLStyle}"
+                ></div>
+                <div
+                  th:text="'总盈亏比: '+${item.sumProfitLossesRate}"
+                  th:style="${item.pLStyle}"
+                ></div>
+              </div>
+            </div>
+            <div th:each="targetitem:${item.targetProfitLossList}">
+              <hr
+                style="border: 1 dashed #987cb9"
+                width="80%"
+                color="#987cb9"
+                size="1"
+              />
+              <div class="layui-row">
+                <div class="layui-col-xs2">
+                  <div th:text="${targetitem.code}"></div>
+                  <div
+                    th:text="${targetitem.name}+'('+${#strings.substring(targetitem.code,2,8)}+')'"
+                  ></div>
+                  <hr align="center" color="#987cb9" size="1" />
+                  <div>当前价格</div>
+                  <div
+                    th:text="${targetitem.realPrice}"
+                    th:style="${targetitem.tsStyle} + 'font-size:20px'"
+                  ></div>
+                </div>
+                <div class="layui-col-xs2">
+                  <div
+                    th:text="'当前仓位: '+${targetitem.currentPositionRate}"
+                  ></div>
+                  <div
+                    th:text="'成本仓位: ' + ${targetitem.costPositionRate}"
+                  ></div>
+                  <hr align="center" color="#987cb9" size="1" />
+
+                  <div
+                    th:text="'盈亏: '+ ${targetitem.targetProfitLoss}"
+                    th:style="${targetitem.pLStyle}"
+                  ></div>
+                  <div
+                    th:text="'盈亏比： '+${targetitem.targetProfitLossRate}"
+                    th:style="${targetitem.pLStyle}"
+                  ></div>
+
+                  <hr align="center" color="#987cb9" size="1" />
+                  <div
+                    th:text="'建议买入区间(-10%)<'+ ${targetitem.recommendedBuyInPoint}"
+                  ></div>
+                  <div
+                    th:text="'建议卖出区间(10%)>'+ ${targetitem.recommendedSaleOutPoint}"
+                  ></div>
+                </div>
+                <div>
+                  <table class="reversal">
+                    <tr>
+                      <th>买入日期</th>
+                      <th>买入价格</th>
+                      <th>数量</th>
+                      <th>盈亏</th>
+                      <th>盈亏比</th>
+                    </tr>
+
+                    <tr th:each="entityItem:${targetitem.positionProfitLosses}">
+                      <td th:text="${entityItem.buyInDateShow}"></td>
+                      <td th:text="${entityItem.position.buyInPrice}"></td>
+                      <td th:text="${entityItem.position.number}"></td>
+                      <td
+                        th:text="${entityItem.profitLoss}"
+                        th:style="${entityItem.positionTablePLStyle}"
+                      ></td>
+                      <td
+                        th:text="${entityItem.profitLossRateShow}"
+                        th:style="${entityItem.positionTablePLStyle}"
+                      ></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-button">
+        <!--            <input type="button" id="wsopen" value="wsopen" onclick="reconnect()"/>-->
+        <!--            <input type="button" value="刷新数据" onclick="refreshPage()">-->
+        <i
+          class="layui-icon layui-icon-refresh-3"
+          style="font-size: 40px; color: #fefcfc"
+          onclick="refreshPage()"
+        ></i>
+      </div>
+    </div>
+  </body>
+</html>
