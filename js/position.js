@@ -2,7 +2,8 @@
 const db = new Dexie("MyDatabase");
 
 db.version(1).stores({
-  position: "++id, name, age",
+  position:
+    "++id, code, name, buy_in_date, buy_in_price, status, number, portfolio",
 });
 
 // CREATE TABLE `position` (
