@@ -11,6 +11,10 @@ db.version(1).stores({
     "++id, code, name, buy_in_date, buy_in_price, status, number, portfolio",
 });
 
+const deleteDBPosition = function (id) {
+  db.position.delete(id);
+};
+
 const refreshRealPositonList = function () {
   // function refreshRealPositonList() {
   db.position.toArray().then(function (positions) {
@@ -26,6 +30,11 @@ const refreshRealPositonList = function () {
       positonListElement.appendChild(listItem);
     }
   });
+};
+
+const deletePosition = function (id) {
+  deleteDBPosition(id);
+  refreshRealPositonList();
 };
 
 function createTr(position) {
@@ -81,11 +90,20 @@ function createTr(position) {
   item.textContent = `${position.buy_in_date}`;
   listItem.appendChild(item);
 
+  // 平仓按钮
+  item = document.createElement("td");
+
+  let button = document.createElement("button");
+  button.textContent = "平仓"; // 设置按钮的文本
+  button.onclick = function () {
+    // 设置按钮的点击事件处理函数
+    deletePosition(`${position.id}`);
+  };
+
+  item.appendChild(button);
+  listItem.appendChild(item);
+
   return listItem;
 }
 
 window.onload = refreshRealPositonList;
-
-// setInterval(function () {
-//   refreshRealPositonList;
-// }, 1000);

@@ -1,45 +1,48 @@
-
-
-table.reversal{
-    text-align: center;
+table.reversal {
+  text-align: center;
 }
 
-table.reversal tr{
-    display: inline-block;
+table.reversal tr {
+  display: inline-block;
 }
 
-table.reversal th,td{
-    display: block;
-    border: 1px solid;
+table.reversal th,
+td {
+  display: block;
+  border: 1px solid;
 }
 
 .parentDiv {
-    position: relative;
-    /*background:antiquewhite;*/
+  position: relative;
+  /*background:antiquewhite;*/
 }
 
 .topDiv {
-    width: 100%;
-    height: 25px;
-    /*background:goldenrod;*/
-    top: 0;
+  width: 100%;
+  height: 25px;
+  /*background:goldenrod;*/
+  top: 0;
 }
 
 .moveDiv {
-    overflow: auto;
-    height: 120px;
-    width: 100%;
-    /*background:paleturquoise;*/
+  overflow: auto;
+  height: 120px;
+  width: 100%;
+  /*background:paleturquoise;*/
 }
-
 
 .float-button {
-    position: fixed; //关键
-height: 90px;
-    width: 40px;
-    bottom: 90px;
-    right: 50px;
-    background: #d5d3d3;
+  position: fixed; /* 关键 */
+  height: 90px;
+  width: 40px;
+  bottom: 90px;
+  right: 50px;
+  background: #d5d3d3;
 }
-.float-button:hover{ background-color: #798383 !important;}
-.float-button:active{ background-color:#000000;}
+
+.float-button:hover {
+  background-color: #798383 !important;
+}
+.float-button:active {
+  background-color: #000000;
+}
