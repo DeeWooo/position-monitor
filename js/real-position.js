@@ -11,30 +11,50 @@ db.version(1).stores({
     "++id, code, name, buy_in_date, buy_in_price, status, number, portfolio",
 });
 
-const deleteDBPosition = function (id) {
-  db.position.delete(id);
-};
-
 const refreshRealPositonList = function () {
   // function refreshRealPositonList() {
-  db.position.toArray().then(function (positions) {
-    const positonListElement = document.getElementById("real-position");
+  db.position
+    .where("status")
+    .equals(0)
+    .toArray()
+    .then(function (positions) {
+      const positonListElement = document.getElementById("real-position");
 
-    // 清空列表
-    positonListElement.innerHTML = "";
+      // 清空列表
+      positonListElement.innerHTML = "";
 
-    // 为每个朋友创建一个列表项
-    for (let position of positions) {
-      const listItem = createTr(position);
+      // 为每个朋友创建一个列表项
+      for (let position of positions) {
+        const listItem = createTr(position);
 
-      positonListElement.appendChild(listItem);
-    }
-  });
+        positonListElement.appendChild(listItem);
+      }
+    });
 };
 
 const deletePosition = function (id) {
-  deleteDBPosition(id);
-  refreshRealPositonList();
+  // deleteDBPosition(id);
+  db.position
+    .update(id, {
+      status: 1,
+    })
+    .then(refreshRealPositonList);
+
+  // db.position.get(id).then(function (record) {
+  //   if (record) {
+  //     console.log("Record exists with id: ", id);
+  //   } else {
+  //     console.log("No record exists with id: ", id);
+  //   }
+  // });
+
+  // db.position.update(id, { status: 1 }).then(function (updated) {
+  //   if (updated) {
+  //     console.log("The record was updated");
+  //   } else {
+  //     console.log("The record was NOT updated");
+  //   }
+  // });
 };
 
 function createTr(position) {
@@ -97,7 +117,7 @@ function createTr(position) {
   button.textContent = "平仓"; // 设置按钮的文本
   button.onclick = function () {
     // 设置按钮的点击事件处理函数
-    deletePosition(`${position.id}`);
+    deletePosition(parseInt(`${position.id}`));
   };
 
   item.appendChild(button);

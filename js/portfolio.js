@@ -67,11 +67,28 @@ const showBody = function () {
   item.textContent = "123412343";
   tr.appendChild(item);
 
+  item = document.createElement("th");
+  item.textContent = "dsgdgdfg";
+  tr.appendChild(item);
+
+  item = document.createElement("th");
+  item.textContent = "hjhjgjh";
+  tr.appendChild(item);
+
+  item = document.createElement("th");
+  item.textContent = "tryuytuty";
+  tr.appendChild(item);
+
+  item = document.createElement("th");
+  item.textContent = "oiuioykhg";
+  tr.appendChild(item);
+
   reversalTab.appendChild(tr);
 };
 
 const show = function () {
   showHead();
+  showBody();
 };
 
 // 页面加载完成时，刷新列表
