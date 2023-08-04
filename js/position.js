@@ -43,6 +43,8 @@ const initializeSecuritiesMap = function () {
 
   // 从position表中获取所有条目
   return db.position
+    .where("status")
+    .equals(1)
     .toArray()
     .then((positions) => {
       // 遍历每个位置，从中提取代码并将其添加到securitiesMap
