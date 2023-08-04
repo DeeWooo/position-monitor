@@ -6,9 +6,9 @@ setInterval(function () {
 
 const db = new Dexie("PositionDatabase");
 
-db.version(1).stores({
+db.version(2).stores({
   position:
-    "++id, code, name, buy_in_date, buy_in_price, status, number, portfolio",
+    "++id, code, name, buy_in_date, buy_in_price, status, number, portfolio,sell_in_date",
 });
 
 const refreshRealPositonList = function () {
@@ -34,9 +34,17 @@ const refreshRealPositonList = function () {
 
 const deletePosition = function (id) {
   // deleteDBPosition(id);
+  // alert(id);
+  let now = new Date();
+  let year = now.getFullYear(); // 获取年份
+  let month = ("0" + (now.getMonth() + 1)).slice(-2); // 获取月份并确保两位数
+  let day = ("0" + now.getDate()).slice(-2); // 获取日期并确保两位数
+  let dateStr = year + "-" + month + "-" + day;
+
   db.position
     .update(id, {
-      status: 1,
+      status: 0,
+      sell_in_date: dateStr,
     })
     .then(refreshRealPositonList);
 
