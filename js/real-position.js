@@ -15,7 +15,7 @@ const refreshRealPositonList = function () {
   // function refreshRealPositonList() {
   db.position
     .where("status")
-    .equals(0)
+    .equals(1)
     .toArray()
     .then(function (positions) {
       const positonListElement = document.getElementById("real-position");

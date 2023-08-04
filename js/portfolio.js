@@ -1,14 +1,4 @@
-// {
-/* <tr>
-<th>买入日期</th>
-<th>买入价格</th>
-<th>数量</th>
-<th>盈亏</th>
-<th>盈亏比</th>
-</tr>
-
-
-<tr
+/* <tr
 th:each="entityItem:${targetitem.positionProfitLosses}"
 >
 <td th:text="${entityItem.buyInDateShow}"></td>
@@ -23,7 +13,6 @@ th:each="entityItem:${targetitem.positionProfitLosses}"
   th:style="${entityItem.positionTablePLStyle}"
 ></td>
 </tr> */
-// }
 
 const reversalTab = document.getElementById("reversal-tab");
 
