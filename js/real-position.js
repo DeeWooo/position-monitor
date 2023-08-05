@@ -1,5 +1,6 @@
 import { db } from "./global/dbConfig.js";
 import { today } from "./global/common.js";
+import { securitiesMap } from "./global/global-data.js";
 
 // 现在你可以使用db变量来访问你的数据库
 
@@ -23,6 +24,8 @@ const refreshRealPositonList = function () {
 
       for (let position of positions) {
         const listItem = createTr(position);
+        // console.log(position.code);
+        // console.log(securitiesMap);
 
         positonListElement.appendChild(listItem);
       }
@@ -61,8 +64,9 @@ function createTr(position) {
   const listItem = document.createElement("tr");
 
   // code
+  const code = `${position.code}`;
   let item = document.createElement("td");
-  item.textContent = `${position.code}`;
+  item.textContent = code;
   listItem.appendChild(item);
 
   // name
@@ -87,7 +91,9 @@ function createTr(position) {
 
   // 当前价格
   item = document.createElement("td");
-  // item.textContent = `${position.current_price}`;
+  // console.log(code.length);
+  // console.log(securitiesMap);
+  // item.textContent = securitiesMap[code];
   listItem.appendChild(item);
 
   // 买入价格

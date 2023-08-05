@@ -2,6 +2,8 @@ export const baseUrl = `http://qt.gtimg.cn`;
 
 export const getStockRealPrice = function (code) {
   const stockUrl = baseUrl + `/q=${code}`;
+
+  console.log(stockUrl);
   const headers = {
     // "Referer": "https://finance.sina.com.cn/",
   };
