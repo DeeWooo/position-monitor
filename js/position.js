@@ -1,8 +1,8 @@
 // 导入从dbConfig.js文件
-import { today } from "./common.js";
-import { db } from "./dbConfig.js";
-import { securitiesMap } from "./global-data.js";
-import { fetchSecurityData } from "./stock.js";
+import { today } from "./global/common.js";
+import { db } from "./global/dbConfig.js";
+import { securitiesMap } from "./global/global-data.js";
+import { fetchSecurityData } from "./global/stock.js";
 
 document.getElementById("open-positon").addEventListener("click", function () {
   const div = document.getElementById("edit-buy");

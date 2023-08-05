@@ -1,5 +1,5 @@
-import { db } from "./dbConfig.js";
-import { today } from "./common.js";
+import { db } from "./global/dbConfig.js";
+import { today } from "./global/common.js";
 
 // 现在你可以使用db变量来访问你的数据库
 
