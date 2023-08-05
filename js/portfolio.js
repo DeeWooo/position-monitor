@@ -48,7 +48,7 @@ const showHead = function () {
 
 const showBody = function () {
   let tr = document.createElement("tr");
-  item = document.createElement("th");
+  let item = document.createElement("th");
   item.textContent = "rsaarew";
   tr.appendChild(item);
 

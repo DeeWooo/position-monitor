@@ -1,15 +1,13 @@
+import { db } from "./dbConfig.js";
+import { today } from "./common.js";
+
+// 现在你可以使用db变量来访问你的数据库
+
 var counter = 0; // 初始值为 0
 setInterval(function () {
   counter++; // 每秒钟加 1
   document.getElementById("seconds").innerHTML = counter; // 更新显示的值
 }, 1000);
-
-const db = new Dexie("PositionDatabase");
-
-db.version(2).stores({
-  position:
-    "++id, code, name, buy_in_date, buy_in_price, status, number, portfolio,sell_in_date",
-});
 
 const refreshRealPositonList = function () {
   // function refreshRealPositonList() {
@@ -23,7 +21,6 @@ const refreshRealPositonList = function () {
       // 清空列表
       positonListElement.innerHTML = "";
 
-      // 为每个朋友创建一个列表项
       for (let position of positions) {
         const listItem = createTr(position);
 
@@ -35,16 +32,11 @@ const refreshRealPositonList = function () {
 const deletePosition = function (id) {
   // deleteDBPosition(id);
   // alert(id);
-  let now = new Date();
-  let year = now.getFullYear(); // 获取年份
-  let month = ("0" + (now.getMonth() + 1)).slice(-2); // 获取月份并确保两位数
-  let day = ("0" + now.getDate()).slice(-2); // 获取日期并确保两位数
-  let dateStr = year + "-" + month + "-" + day;
 
   db.position
     .update(id, {
       status: 0,
-      sell_in_date: dateStr,
+      sell_in_date: today,
     })
     .then(refreshRealPositonList);
 
