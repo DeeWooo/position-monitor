@@ -4,6 +4,22 @@ import { db } from "./global/dbConfig.js";
 import { securitiesMap } from "./global/global-data.js";
 import { fetchSecurityData } from "./global/stock.js";
 
+function reloadRealPosition() {
+  // 获取iframe元素
+  var iframe = document.getElementById("rp-iframe");
+
+  // 保存当前的src
+  var currentSrc = iframe.src;
+
+  // 将src设置为空字符串，然后立即设置回来
+  iframe.src = "";
+  iframe.src = currentSrc;
+}
+
+setInterval(function () {
+  reloadRealPosition();
+}, 20000);
+
 document.getElementById("open-positon").addEventListener("click", function () {
   const div = document.getElementById("edit-buy");
 
@@ -54,6 +70,8 @@ document.getElementById("save-record").addEventListener("click", function () {
   const price = document.getElementById("priceInput").value;
   const number = document.getElementById("numberInput").value;
 
+  console.log(code + "--" + name + "--" + price + "--" + number);
+
   // code 校验
   // 正则表达式用于检查code是否以"sz"或"sh"开头，后跟6位数字
   const pattern = /^(sz|sh)\d{6}$/;
@@ -69,40 +87,9 @@ document.getElementById("save-record").addEventListener("click", function () {
       name: name,
       buy_in_price: price,
       number: number,
-      buy_in_date: today,
+      buy_in_date: today(),
       status: 1,
     })
+    .catch((error) => console.error("An error occurred:", error))
     .then(reloadRealPosition);
 });
-
-// document.getElementById("real-price").addEventListener("click", function () {
-//   const code = document.getElementById("code").value;
-
-//   // 正则表达式用于检查code是否以"sz"或"sh"开头，后跟6位数字
-//   const pattern = /^(sz|sh)\d{6}$/;
-
-//   if (!pattern.test(code)) {
-//     alert("输入的股票代码不合法，必须以'sz'或'sh'开头，后跟6位数字。");
-//     return;
-//   }
-
-//   getStockRealPrice(code).then((price) => {
-//     console.log(price);
-//   });
-// });
-
-function reloadRealPosition() {
-  // 获取iframe元素
-  var iframe = document.getElementById("rp-iframe");
-
-  // 保存当前的src
-  var currentSrc = iframe.src;
-
-  // 将src设置为空字符串，然后立即设置回来
-  iframe.src = "";
-  iframe.src = currentSrc;
-}
-
-setInterval(function () {
-  reloadRealPosition();
-}, 20000);

@@ -36,7 +36,7 @@ const deletePosition = function (id) {
   db.position
     .update(id, {
       status: 0,
-      sell_in_date: today,
+      sell_in_date: today(),
     })
     .then(refreshRealPositonList);
 
