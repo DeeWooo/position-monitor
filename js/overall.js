@@ -31,40 +31,39 @@ document.getElementById("open-positon").addEventListener("click", function () {
   }
 });
 
-document.getElementById("codeInput").addEventListener("input", function () {
-  const codeInput = this.value;
-
-  // 使用正则表达式来检查codeInput是否符合要求的模式
-  const pattern = /^(sz|sh)\d{6}$/;
-  if (pattern.test(codeInput)) {
-    const quote = getRealQuote(codeInput);
-    if (quote) {
-      // 如果在securitiesMap中找到了相应的证券数据，则设置nameInput的值
-      const nameInput = quote.name;
-      const priceInput = quote.realPrice;
-      document.getElementById("nameInput").value = nameInput;
-      document.getElementById("priceInput").value = priceInput;
+document
+  .getElementById("codeInput")
+  .addEventListener("input", async function () {
+    const codeInput = this.value;
+    console.log(codeInput);
+    const pattern = /^(sz|sh)\d{6}$/;
+    if (pattern.test(codeInput)) {
+      try {
+        const quote = await getRealQuote(codeInput);
+        console.log(quote);
+        if (quote) {
+          const nameInput = quote.name;
+          const priceInput = quote.realPrice;
+          document.getElementById("nameInput").value = nameInput;
+          document.getElementById("priceInput").value = priceInput;
+        } else {
+          const data = await fetchSecurityData(codeInput);
+          securitiesMap[codeInput] = {
+            code: codeInput,
+            name: data.name,
+            realPrice: data.realPrice,
+          };
+          document.getElementById("nameInput").value = data.name;
+          document.getElementById("priceInput").value = data.realPrice;
+        }
+      } catch (err) {
+        console.log(err);
+      }
     } else {
-      // 在securitiesMap中找不到相应的证券数据，因此调用API来获取
-      fetchSecurityData(codeInput).then((data) => {
-        // 将新获取的证券数据添加到securitiesMap中
-        securitiesMap[codeInput] = {
-          code: codeInput,
-          name: data.name,
-          realPrice: data.realPrice,
-        };
-
-        // 更新nameInput和priceInput的值
-        document.getElementById("nameInput").value = data.name;
-        document.getElementById("priceInput").value = data.realPrice;
-      });
+      document.getElementById("nameInput").value = "";
+      document.getElementById("priceInput").value = "";
     }
-  } else {
-    // 清空名称输入框和价格输入框，因为证券代码不符合所需的模式
-    document.getElementById("nameInput").value = "";
-    document.getElementById("priceInput").value = "";
-  }
-});
+  });
 
 document.getElementById("save-record").addEventListener("click", function () {
   const code = document.getElementById("codeInput").value;

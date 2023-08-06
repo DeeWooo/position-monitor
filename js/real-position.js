@@ -22,15 +22,15 @@ export function refreshRealPositonList() {
         const number = parseFloat(position.number);
         const realPrice = realQuote.realPrice;
         const buyInPrice = parseFloat(position.buy_in_price);
-        const profitLoss = (realPrice - buyInPrice) * number;
+        const profitLoss = ((realPrice - buyInPrice) * number).toFixed(4);
 
         const profitLossRate = (realPrice - buyInPrice) / buyInPrice;
 
         // 如果你希望结果保留6位小数，可以使用 toFixed 方法
-        const profitLossRateRounded = profitLossRate.toFixed(6);
+        const profitLossRateRounded = profitLossRate.toFixed(4);
 
-        const profit10 = parseFloat(position.buy_in_price * 1.1).toFixed(6);
-        const profit20 = parseFloat(position.buy_in_price * 1.2).toFixed(6);
+        const profit10 = parseFloat(position.buy_in_price * 1.1).toFixed(4);
+        const profit20 = parseFloat(position.buy_in_price * 1.2).toFixed(4);
 
         // 为每个位置对象添加新字段
         return {
@@ -51,7 +51,7 @@ export function refreshRealPositonList() {
       // 排序
       updatedPositions.sort((a, b) => b.profitLossRate - a.profitLossRate);
 
-      console.log(updatedPositions);
+      // console.log(updatedPositions);
 
       const positonListElement = document.getElementById("real-position");
 
@@ -59,7 +59,7 @@ export function refreshRealPositonList() {
       positonListElement.innerHTML = "";
 
       for (let position of updatedPositions) {
-        console.log(position);
+        // console.log(position);
         const listItem = createTr(position);
         positonListElement.appendChild(listItem);
       }
