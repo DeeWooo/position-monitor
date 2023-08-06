@@ -1,8 +1,9 @@
 // 导入从dbConfig.js文件
-import { today } from "./global/tools.js";
-import { addPosition } from "./global/db.js";
-import { securitiesMap } from "./global/global-data.js";
-import { fetchSecurityData } from "./global/stock.js";
+import { today } from "./service/tools.js";
+import { addPosition } from "./service/db.js";
+
+import { fetchSecurityData } from "./service/api.js";
+import { getRealQuote } from "./service/quote.js";
 
 function reloadRealPosition() {
   // 获取iframe元素
@@ -36,10 +37,11 @@ document.getElementById("codeInput").addEventListener("input", function () {
   // 使用正则表达式来检查codeInput是否符合要求的模式
   const pattern = /^(sz|sh)\d{6}$/;
   if (pattern.test(codeInput)) {
-    if (securitiesMap[codeInput]) {
+    const quote = getRealQuote(codeInput);
+    if (quote) {
       // 如果在securitiesMap中找到了相应的证券数据，则设置nameInput的值
-      const nameInput = securitiesMap[codeInput].name;
-      const priceInput = securitiesMap[codeInput].realPrice;
+      const nameInput = quote.name;
+      const priceInput = quote.realPrice;
       document.getElementById("nameInput").value = nameInput;
       document.getElementById("priceInput").value = priceInput;
     } else {

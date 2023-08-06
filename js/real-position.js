@@ -1,6 +1,7 @@
-import { getValidPositions } from "./global/db.js";
-import { today } from "./global/tools.js";
-import { securitiesMap } from "./global/global-data.js";
+import { getValidPositions } from "./service/db.js";
+import { today } from "./service/tools.js";
+
+import { getRealQuote } from "./service/quote.js";
 
 // 现在你可以使用db变量来访问你的数据库
 
@@ -12,16 +13,14 @@ setInterval(function () {
 
 export function refreshRealPositonList() {
   // function refreshRealPositonList() {
-  getValidPositions().then(function (positions) {
+  getValidPositions().then(async function (positions) {
     const positonListElement = document.getElementById("real-position");
 
     // 清空列表
     positonListElement.innerHTML = "";
 
     for (let position of positions) {
-      const listItem = createTr(position);
-      // console.log(position.code);
-      // console.log(securitiesMap);
+      const listItem = await createTr(position);
 
       positonListElement.appendChild(listItem);
     }
@@ -35,7 +34,7 @@ const deletePosition = function (id) {
   }).then(refreshRealPositonList);
 };
 
-function createTr(position) {
+async function createTr(position) {
   const listItem = document.createElement("tr");
 
   // code
@@ -66,9 +65,9 @@ function createTr(position) {
 
   // 当前价格
   item = document.createElement("td");
-  console.log(securitiesMap[code]);
-  // console.log(securitiesMap[code]?.realPrice);
-  // item.textContent = securitiesMap[code]?.realPrice;
+  const realQuote = await getRealQuote(code);
+  // console.log(realQuote);
+  item.textContent = realQuote.realPrice;
   listItem.appendChild(item);
 
   // 买入价格
