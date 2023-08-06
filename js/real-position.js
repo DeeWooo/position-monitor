@@ -58,11 +58,40 @@ export function refreshRealPositonList() {
       // 清空列表
       positonListElement.innerHTML = "";
 
+      let statistics = {
+        totalCost: 0, // 持仓总成本
+        totalProfitLoss: 0, // 持仓总盈亏
+        totalProfitLossRate: 0, // 持仓总盈亏比
+      };
+
       for (let position of updatedPositions) {
         // console.log(position);
         const listItem = createTr(position);
         positonListElement.appendChild(listItem);
+
+        const cost = position.buy_in_price * position.number; // 计算每个position的成本
+        const profitLoss = position.profitLoss; // 盈亏
+
+        // 累加统计数据
+        statistics.totalCost += cost;
+        statistics.totalProfitLoss += parseFloat(position.profitLoss);
       }
+      // 计算平均盈亏比
+      statistics.totalProfitLossRate =
+        statistics.totalProfitLoss / statistics.totalCost;
+
+      const totalPositionCost = document.getElementById("totalPositionCost");
+      totalPositionCost.textContent = statistics.totalCost;
+
+      const sumProfitLosses = document.getElementById("sumProfitLosses");
+      sumProfitLosses.textContent = statistics.totalProfitLoss;
+      updateStyle(sumProfitLosses, statistics.totalProfitLoss);
+
+      const totalProfitLosseRate = document.getElementById(
+        "totalProfitLosseRate"
+      );
+      totalProfitLosseRate.textContent = statistics.totalProfitLossRate;
+      updateStyle(totalProfitLosseRate, statistics.totalProfitLossRate);
     })
     .catch((error) => {
       console.error(error);
