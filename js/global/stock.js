@@ -1,36 +1,36 @@
 export const baseUrl = `http://qt.gtimg.cn`;
 
-export const getStockRealPrice = function (code) {
+export const getStockRealPrice = async function (code) {
   const stockUrl = baseUrl + `/q=${code}`;
 
-  console.log(stockUrl);
+  // console.log(stockUrl);
   const headers = {
     // "Referer": "https://finance.sina.com.cn/",
   };
 
   // Assuming you use a library like axios or fetch for HTTP requests
-  return fetch(stockUrl, {
-    method: "GET",
-    headers: headers,
-  })
-    .then((response) => response.text())
-    .then((result) => {
-      const pattern = /\"(.*?)\"/g;
-      let values = "";
-      let match = pattern.exec(result);
+  try {
+    const response = await fetch(stockUrl, {
+      method: "GET",
+      headers: headers,
+    });
+    const result_1 = await response.text();
+    const pattern = /\"(.*?)\"/g;
+    let values = "";
+    let match = pattern.exec(result_1);
 
-      while (match != null) {
-        values = match[0].replace('"', "");
-        match = pattern.exec(result);
-      }
+    while (match != null) {
+      values = match[0].replace('"', "");
+      match = pattern.exec(result_1);
+    }
 
-      const list = values.split("~");
-      const realPrice = parseFloat(list[3]);
-      const roundedRealPrice = parseFloat(realPrice.toFixed(4));
-
-      return roundedRealPrice;
-    })
-    .catch((error) => console.error("An error occurred:", error));
+    const list = values.split("~");
+    const realPrice = parseFloat(list[3]);
+    const roundedRealPrice = parseFloat(realPrice.toFixed(4));
+    return roundedRealPrice;
+  } catch (error) {
+    return console.error("An error occurred:", error);
+  }
 };
 
 // 示例：用于从API获取证券数据的函数

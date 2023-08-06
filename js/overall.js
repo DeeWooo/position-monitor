@@ -1,6 +1,6 @@
 // 导入从dbConfig.js文件
-import { today } from "./global/common.js";
-import { db } from "./global/dbConfig.js";
+import { today } from "./global/tools.js";
+import { addPosition } from "./global/db.js";
 import { securitiesMap } from "./global/global-data.js";
 import { fetchSecurityData } from "./global/stock.js";
 
@@ -81,15 +81,12 @@ document.getElementById("save-record").addEventListener("click", function () {
     return;
   }
 
-  db.position
-    .add({
-      code: code,
-      name: name,
-      buy_in_price: price,
-      number: number,
-      buy_in_date: today(),
-      status: 1,
-    })
-    .catch((error) => console.error("An error occurred:", error))
-    .then(reloadRealPosition);
+  addPosition({
+    code: code,
+    name: name,
+    buy_in_price: price,
+    number: number,
+    buy_in_date: today(),
+    status: 1,
+  }).then(reloadRealPosition);
 });

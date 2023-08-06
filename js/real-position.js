@@ -1,5 +1,5 @@
-import { db } from "./global/dbConfig.js";
-import { today } from "./global/common.js";
+import { getValidPositions } from "./global/db.js";
+import { today } from "./global/tools.js";
 import { securitiesMap } from "./global/global-data.js";
 
 // 现在你可以使用db变量来访问你的数据库
@@ -10,54 +10,29 @@ setInterval(function () {
   document.getElementById("seconds").innerHTML = counter; // 更新显示的值
 }, 1000);
 
-const refreshRealPositonList = function () {
+export function refreshRealPositonList() {
   // function refreshRealPositonList() {
-  db.position
-    .where("status")
-    .equals(1)
-    .toArray()
-    .then(function (positions) {
-      const positonListElement = document.getElementById("real-position");
+  getValidPositions().then(function (positions) {
+    const positonListElement = document.getElementById("real-position");
 
-      // 清空列表
-      positonListElement.innerHTML = "";
+    // 清空列表
+    positonListElement.innerHTML = "";
 
-      for (let position of positions) {
-        const listItem = createTr(position);
-        // console.log(position.code);
-        // console.log(securitiesMap);
+    for (let position of positions) {
+      const listItem = createTr(position);
+      // console.log(position.code);
+      // console.log(securitiesMap);
 
-        positonListElement.appendChild(listItem);
-      }
-    });
-};
+      positonListElement.appendChild(listItem);
+    }
+  });
+}
 
 const deletePosition = function (id) {
-  // deleteDBPosition(id);
-  // alert(id);
-
-  db.position
-    .update(id, {
-      status: 0,
-      sell_in_date: today(),
-    })
-    .then(refreshRealPositonList);
-
-  // db.position.get(id).then(function (record) {
-  //   if (record) {
-  //     console.log("Record exists with id: ", id);
-  //   } else {
-  //     console.log("No record exists with id: ", id);
-  //   }
-  // });
-
-  // db.position.update(id, { status: 1 }).then(function (updated) {
-  //   if (updated) {
-  //     console.log("The record was updated");
-  //   } else {
-  //     console.log("The record was NOT updated");
-  //   }
-  // });
+  updatePosition(id, {
+    status: 0,
+    sell_in_date: today(),
+  }).then(refreshRealPositonList);
 };
 
 function createTr(position) {
@@ -91,9 +66,9 @@ function createTr(position) {
 
   // 当前价格
   item = document.createElement("td");
-  // console.log(code.length);
-  // console.log(securitiesMap);
-  // item.textContent = securitiesMap[code];
+  console.log(securitiesMap[code]);
+  // console.log(securitiesMap[code]?.realPrice);
+  // item.textContent = securitiesMap[code]?.realPrice;
   listItem.appendChild(item);
 
   // 买入价格
