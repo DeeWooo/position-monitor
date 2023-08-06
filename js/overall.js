@@ -35,12 +35,12 @@ document
   .getElementById("codeInput")
   .addEventListener("input", async function () {
     const codeInput = this.value;
-    console.log(codeInput);
+    // console.log(codeInput);
     const pattern = /^(sz|sh)\d{6}$/;
     if (pattern.test(codeInput)) {
       try {
         const quote = await getRealQuote(codeInput);
-        console.log(quote);
+        // console.log(quote);
         if (quote) {
           const nameInput = quote.name;
           const priceInput = quote.realPrice;
@@ -68,8 +68,8 @@ document
 document.getElementById("save-record").addEventListener("click", function () {
   const code = document.getElementById("codeInput").value;
   const name = document.getElementById("nameInput").value;
-  const price = document.getElementById("priceInput").value;
-  const number = document.getElementById("numberInput").value;
+  const price = parseFloat(document.getElementById("priceInput").value);
+  const number = parseFloat(document.getElementById("numberInput").value);
 
   console.log(code + "--" + name + "--" + price + "--" + number);
 
@@ -79,6 +79,20 @@ document.getElementById("save-record").addEventListener("click", function () {
 
   if (!pattern.test(code)) {
     alert("输入的股票代码不合法，必须以'sz'或'sh'开头，后跟6位数字。");
+    return;
+  }
+
+  // price 校验
+  if (isNaN(price) || price <= 0) {
+    alert("请输入有效的价格（必须是大于0的数字）");
+    priceElement.focus();
+    return;
+  }
+
+  // number 校验
+  if (isNaN(number) || number <= 0) {
+    alert("请输入有效的数量（必须是大于0的数字）");
+    numberElement.focus();
     return;
   }
 
