@@ -62,3 +62,7 @@ position-monitor 是一个用于投资新手的持仓监控插件。它可以帮
 如果您在使用 position-monitor 插件过程中遇到任何问题或有任何建议，请通过 github 的 issues 提供反馈。我将尽力为您解决问题并改进插件的功能和性能。
 
 谢谢您选择 position-monitor 插件工具！希望它能帮助您更好地管理和优化您的投资。
+
+### PS
+
+本篇 readme 文字大部分由 ChatGPT 生成。
