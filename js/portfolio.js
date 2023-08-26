@@ -83,7 +83,7 @@ async function calculateTargetProfitLoss(positions) {
         0.0
       );
 
-      targetProfitLoss.targetProfitLoss = profitLoss;
+      targetProfitLoss.targetProfitLoss = profitLoss.toFixed(4);
 
       const profitLossRate =
         costPosition === 0 ? 0 : (profitLoss / costPosition).toFixed(4);
@@ -104,8 +104,8 @@ async function calculateTargetProfitLoss(positions) {
 
       const saleOut = lastBuyIn * 1.1;
 
-      targetProfitLoss.recommendedBuyInPoint = buyIn;
-      targetProfitLoss.recommendedSaleOutPoint = saleOut;
+      targetProfitLoss.recommendedBuyInPoint = buyIn.toFixed(4);
+      targetProfitLoss.recommendedSaleOutPoint = saleOut.toFixed(4);
 
       const tsStyle = styleTradingSignal(
         targetProfitLoss.realPrice,
@@ -236,14 +236,14 @@ function showDiv(targetProfitLoss, element) {
   col2.appendChild(col2Hr1);
 
   let targetProfitLossDiv = document.createElement("div");
-  targetProfitLossDiv.textContent =
-    "盈亏: " + targetProfitLoss.targetProfitLoss;
+  const profitLoss = targetProfitLoss.targetProfitLoss;
+  targetProfitLossDiv.textContent = "盈亏: " + profitLoss;
   targetProfitLossDiv.style = targetProfitLoss.pLStyle;
   col2.appendChild(targetProfitLossDiv);
 
   let targetProfitLossRateDiv = document.createElement("div");
-  targetProfitLossRateDiv.textContent =
-    "盈亏比: " + targetProfitLoss.targetProfitLossRate;
+  const profitLossRate = targetProfitLoss.targetProfitLossRate;
+  targetProfitLossRateDiv.textContent = "盈亏比: " + profitLossRate;
   targetProfitLossRateDiv.style = targetProfitLoss.pLStyle;
   col2.appendChild(targetProfitLossRateDiv);
 
