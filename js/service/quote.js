@@ -6,6 +6,7 @@ import {
   updateRealQuote,
 } from "./db.js";
 
+export const FULL_POSITION = 50000.0;
 //todo 读行情表，逐一更新
 function updateRealQuotes() {
   getRealQuotes().then(function (realQuotes) {

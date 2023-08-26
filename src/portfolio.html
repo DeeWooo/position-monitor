@@ -5,10 +5,14 @@
     <title>Portfolio Page</title>
 
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/layui/css/layui.css" />
+    <script src="/css/layui/layui.js"></script>
   </head>
   <body>
     <div class="main-container">
       <div class="main-content">
+        <div id="targetProfitLossList"></div>
         <div th:fragment="t2" id="t2">
           <div th:each="item:${positons}">
             <hr />
@@ -98,6 +102,7 @@
         ></i>
       </div>
     </div>
+    <script src="/js/service/dexie.min.js"></script>
     <script src="/js/portfolio.js" type="module"></script>
   </body>
 </html>
