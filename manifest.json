@@ -1,7 +1,7 @@
 {
   "name": "position-monitor",
-  "description": "投资者的持仓监控插件",
-  "version": "0.1",
+  "description": "投资新手的持仓监控插件",
+  "version": "0.2",
   "manifest_version": 3,
   "permissions": ["activeTab", "tabs", "scripting"],
   "action": {},
