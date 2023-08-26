@@ -3,9 +3,9 @@ import { TargetProfitLoss, PositionProfitLoss } from "./service/type.js";
 import { getRealQuote, FULL_POSITION } from "./service/quote.js";
 import { styleProcess, styleTradingSignal } from "./service/tools.js";
 
-const t2 = document.getElementById("t2");
-
-const reversalTab = document.getElementById("reversal-tab");
+function refreshPage() {
+  showData();
+}
 
 async function calculateTargetProfitLoss(positions) {
   // Group by code
@@ -329,7 +329,7 @@ function showTableBody(targetProfitLoss, element) {
   }
 }
 
-const show = async function () {
+async function showData() {
   //造数据
   const targetProfitLossList = await getTargetProfitLoss();
 
@@ -356,6 +356,12 @@ const show = async function () {
     //画table
     showTable(targetProfitLoss, reversalTable);
   }
+}
+
+const show = async function () {
+  await showData();
+  const refresh_icon = document.getElementById("refresh-icon");
+  refresh_icon.addEventListener("click", refreshPage);
 };
 
 // 页面加载完成时，刷新列表
