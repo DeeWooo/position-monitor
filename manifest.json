@@ -1,11 +1,15 @@
 {
   "name": "position-monitor",
   "description": "投资新手的持仓监控插件",
-  "version": "0.2",
+  "version": "0.3",
   "manifest_version": 3,
   "permissions": ["activeTab", "tabs", "scripting"],
   "action": {},
-  "icons": { "16": "images/opencat.png" },
+  "icons": {
+    "16": "images/opencat.png",
+    "48": "images/opencat.png",
+    "128": "images/opencat.png"
+  },
   "background": {
     "service_worker": "js/background.js"
   }
