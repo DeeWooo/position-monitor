@@ -71,8 +71,11 @@ document.getElementById("save-record").addEventListener("click", function () {
   const name = document.getElementById("nameInput").value;
   const price = parseFloat(document.getElementById("priceInput").value);
   const number = parseFloat(document.getElementById("numberInput").value);
-
-  console.log(code + "--" + name + "--" + price + "--" + number);
+  const buyInDate = document.getElementById("buyInDateInput").value;
+  const buy_in_date = buyInDate === "" ? today() : buyInDate;
+  console.log(
+    code + "--" + name + "--" + price + "--" + number + "---" + buy_in_date
+  );
 
   // code 校验
   // 正则表达式用于检查code是否以"sz"或"sh"开头，后跟6位数字
@@ -102,7 +105,7 @@ document.getElementById("save-record").addEventListener("click", function () {
     name: name,
     buy_in_price: price,
     number: number,
-    buy_in_date: today(),
+    buy_in_date: buy_in_date,
     status: 1,
   }).then(reloadRealPosition);
 });
