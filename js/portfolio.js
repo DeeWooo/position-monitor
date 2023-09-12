@@ -4,6 +4,9 @@ import { getRealQuote, FULL_POSITION } from "./service/quote.js";
 import { styleProcess, styleTradingSignal } from "./service/tools.js";
 
 function refreshPage() {
+  // 清空targetProfitLossList下所有子元素
+  const targetListDiv = document.getElementById("targetProfitLossList");
+  targetListDiv.innerHTML = "";
   showData();
 }
 
