@@ -4,6 +4,7 @@ import { addPosition } from "./service/db.js";
 
 import { fetchSecurityData } from "./service/api.js";
 import { getRealQuote } from "./service/quote.js";
+import { saveFile, openFile } from "./service/file.js";
 
 function reloadRealPosition() {
   // 获取iframe元素
@@ -105,3 +106,29 @@ document.getElementById("save-record").addEventListener("click", function () {
     status: 1,
   }).then(reloadRealPosition);
 });
+
+let fileHandle = null;
+
+document.getElementById("fileRead").addEventListener("click", async () => {
+  const shouldOpenFile = confirm("是否要打开持仓记录文件？");
+  if (shouldOpenFile) {
+    await openFile();
+    reloadRealPosition();
+  }
+});
+
+document
+  .getElementById("fileWrite")
+  .addEventListener("click", async function () {
+    await saveFile();
+  });
+window.addEventListener("beforeunload", function (event) {
+  event.preventDefault();
+
+  event.returnValue =
+    "亲爱的小伙伴，如果尚未保存持仓数据，请点击“取消”，并在页面上找到“保存持仓数据”按钮来保存持仓数据。如果已经保存，请点击“确认”离开～";
+});
+
+window.onbeforeunload = function (event) {
+  event.preventDefault();
+};

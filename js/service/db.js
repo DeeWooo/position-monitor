@@ -9,6 +9,16 @@ db.version(4).stores({
   realQuote: "++id, code, name, realPrice",
 });
 
+export function clearPositionData() {
+  return db.position
+    .clear()
+    .catch((error) => console.error("An error occurred:", error));
+}
+
+export function getAllPositions() {
+  return db.position.toArray();
+}
+
 // 处理position
 export function addPosition(position) {
   return db.position
