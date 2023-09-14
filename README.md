@@ -44,8 +44,8 @@ position-monitor 是一个用于投资新手的持仓监控插件。它可以帮
 
 ### 安装和使用
 
-1. 下载插件：整个代码库保存到本地
-2. 安装插件：打开 Chrome 浏览器的扩展程序页面（chrome://extensions/），将代码库文件夹拖放到该页面中进行安装。
+1. 下载插件：试用版下载地址： https://github.com/DeeWooo/position-monitor/releases 可下载自己适合的压缩包，解压到本地。
+2. 安装插件：打开 Chrome 浏览器的扩展程序页面（chrome://extensions/），将解压好的文件夹拖放到该页面中进行安装。
 3. 启用插件：在扩展程序页面中找到 position-monitor 插件，并启用它。
 4. 使用插件：点击插件图标即可打开 position-monitor 的主界面，开始使用插件的各项功能。
 <!-- 1. 下载插件文件：从 Chrome 应用商店或开发者官网下载 position-monitor 插件文件。
